@@ -1,0 +1,79 @@
+/* Calculateur d'astrOrganic — AGPL-3.0 ou ultérieure. Complète article.css (même charte). */
+.wrap.large{max-width:1040px}
+.wrap.large header,.wrap.large main>h2,.wrap.large main>p,.wrap.large main>h3,.wrap.large main>.trois,.wrap.large main>.source,.wrap.large main>.voir-aussi{max-width:760px}
+.calcul{border:1px solid var(--filet);border-radius:4px;padding:22px 24px;margin:26px 0 10px;background:#FFFDF8;max-width:760px}
+.calcul label{display:flex;flex-direction:column;gap:6px;font-family:Inter,system-ui,sans-serif;font-size:13.5px;color:var(--muted)}
+.calcul .champs{display:flex;flex-wrap:wrap;gap:16px 22px;align-items:flex-end;margin-bottom:16px}
+.calcul input[type=date],.calcul input[type=time],.calcul input[type=text]{font:inherit;font-family:Spectral,Georgia,serif;font-size:18px;color:var(--navy);padding:9px 11px;border:1px solid var(--filet);border-radius:3px;background:#fff}
+.calcul input:focus{outline:2px solid var(--or);outline-offset:1px}
+.calcul input:disabled{opacity:.45}
+.calcul .coche{flex-direction:row;align-items:center;gap:8px;padding-bottom:12px}
+.calcul .lieu{position:relative;margin-bottom:6px}
+#lieux{position:absolute;z-index:5;top:100%;left:0;right:0;list-style:none;margin:4px 0 0;padding:4px 0;background:#fff;border:1px solid var(--filet);border-radius:3px;box-shadow:0 8px 24px rgba(7,29,41,.12);max-height:320px;overflow:auto}
+#lieux li{padding:8px 12px;cursor:pointer;display:flex;flex-direction:column;margin:0}
+#lieux li.actif,#lieux li:hover{background:rgba(180,131,12,.1)}
+#lieux .nom{font-family:Spectral,Georgia,serif;font-size:17px;color:var(--navy)}
+#lieux .ctx{font-size:12.5px;color:var(--muted)}
+.precision{font-family:Inter,system-ui,sans-serif;font-size:13px;color:var(--muted);margin:6px 0}
+.btn-calcul,.btn-pdf,.btn-source{display:inline-block;background:var(--navy);color:var(--creme);border:0;border-radius:3px;padding:13px 22px;font-family:Inter,sans-serif;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;margin-top:10px}
+.btn-calcul:disabled,.btn-pdf:disabled{opacity:.6;cursor:wait}
+.btn-pdf{background:var(--or)}
+.message{font-family:Inter,system-ui,sans-serif;font-size:14px;color:#8A2D1B;margin:8px 0 0;min-height:1em}
+#resultat{margin-top:34px;border-top:1px solid var(--filet-leger);padding-top:6px}
+#resultat h2:focus{outline:none}
+.resume{font-size:19px;color:var(--navy);margin:0 0 16px}
+.trois-reperes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0 0 18px;max-width:760px}
+.repere{border:1px solid var(--filet);border-radius:4px;padding:12px 16px;cursor:pointer}
+.repere b{display:block;font-family:Inter,system-ui,sans-serif;font-weight:500;font-size:12.5px;color:var(--or);text-transform:uppercase;letter-spacing:.06em}
+.repere .valeur{display:flex;align-items:center;gap:6px;font-size:21px;color:var(--navy)}
+.repere .deg{font-family:Inter,system-ui,sans-serif;font-size:13px;color:var(--muted)}
+.consigne{font-family:Inter,system-ui,sans-serif;font-size:14px;color:var(--navy);margin:8px 0}
+.boite-roue{max-width:640px;margin:0 auto}
+.roue{width:100%;height:auto;display:block;color:var(--navy);user-select:none}
+.roue .cible{cursor:pointer;outline:none}
+.roue .cible:focus-visible path,.roue .cible:focus-visible line{filter:drop-shadow(0 0 2px #B4830C)}
+.roue .cible.surligne path:not(.secteur){filter:drop-shadow(0 0 3px rgba(180,131,12,.9))}
+.roue .cible.surligne .secteur{fill:rgba(180,131,12,.22)}
+.roue .cible.surligne line{stroke-width:2.6;opacity:1}
+.legende{font-family:Inter,system-ui,sans-serif;font-size:12.5px;color:var(--muted);text-align:center;margin:6px 0 24px}
+.legende .trait{display:inline-block;width:22px;height:0;border-top:2px solid;vertical-align:middle;margin:0 4px}
+.legende .accord{border-color:var(--or)} .legende .tension{border-color:var(--navy)}
+.deux-colonnes{display:grid;grid-template-columns:3fr 2fr;gap:30px;align-items:start}
+.gl{width:1.05em;height:1.05em;vertical-align:-.15em;display:inline-block}
+.gl.signe{width:.95em;height:.95em;color:var(--or)}
+.gl.accord{color:var(--or)} .gl.tension{color:var(--navy)}
+table.positions td{padding:7px 8px 7px 0;font-size:16px}
+table.positions td.g{width:28px;color:var(--navy);font-size:19px}
+table.positions td.nom{color:var(--navy)}
+table.positions td.retro{font-family:Inter,system-ui,sans-serif;font-size:12px;color:var(--or)}
+table.positions tr.cible{cursor:pointer}
+table.positions tr.surligne,table.positions tr:focus{background:rgba(180,131,12,.1);outline:none}
+.sigle{font-family:Inter,system-ui,sans-serif;font-size:12px;font-weight:500}
+.aspects{list-style:none;padding:0;margin:0;columns:2;column-gap:18px;font-size:15px}
+.aspects li{break-inside:avoid;padding:4px 6px;border-radius:3px;cursor:pointer;margin:0}
+.aspects li.surligne,.aspects li:focus{background:rgba(180,131,12,.1);outline:none}
+.aspects .ecart{font-family:Inter,system-ui,sans-serif;font-size:11.5px;color:var(--muted);margin-left:6px}
+.actions{text-align:center;margin:20px 0 0}
+.bulle{position:absolute;z-index:20;width:320px;background:#FFFDF8;border:1px solid var(--or);border-radius:5px;box-shadow:0 12px 32px rgba(7,29,41,.18);padding:14px 16px 12px;font-size:15px;line-height:1.5}
+.bulle .tete{display:flex;align-items:center;gap:8px;font-size:19px;color:var(--navy);margin-bottom:4px;padding-right:18px}
+.bulle .tete .gl{width:1.15em;height:1.15em;color:var(--or)}
+.bulle .fait{font-family:Inter,system-ui,sans-serif;font-size:13px;color:var(--or);margin:0 0 8px}
+.bulle .quoi{margin:0 0 8px;color:var(--corps)}
+.bulle .lien{font-family:Inter,system-ui,sans-serif;font-size:13.5px;color:var(--navy);font-weight:500}
+.bulle .fermer{position:absolute;top:6px;right:8px;border:0;background:none;font-size:20px;line-height:1;color:var(--muted);cursor:pointer;padding:4px}
+.bulle.en-bas{position:fixed;left:10px!important;right:10px;bottom:10px;top:auto!important;width:auto;max-height:55vh;overflow:auto}
+.source{border:1px solid var(--filet);border-radius:4px;padding:6px 22px 16px;margin:40px 0 0}
+.source h2{margin-top:18px}
+@media (max-width:700px){
+  .deux-colonnes{grid-template-columns:1fr}
+  .trois-reperes{grid-template-columns:1fr}
+  .aspects{columns:1}
+  .calcul{padding:18px 16px}
+  /* iPhone (22/09) : Safari impose une largeur minimale aux champs date et heure, qui débordaient du cadre.
+     Deux colonnes de grille qui peuvent rétrécir (minmax(0,1fr)), des champs sans largeur minimale. */
+  .calcul .champs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 12px}
+  .calcul .champs label{min-width:0}
+  .calcul .champs .coche{grid-column:1 / -1;padding-bottom:0}
+  .calcul input[type=date],.calcul input[type=time]{width:100%;min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;display:block;min-height:46px;text-align:left}
+  .calcul input[type=date]::-webkit-date-and-time-value,.calcul input[type=time]::-webkit-date-and-time-value{text-align:left}
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calcul de thème astral gratuit : ta carte du ciel — astrOrganic</title>
+<meta name="description" content="Calcule ton thème astral gratuitement : ta carte du ciel à la minute, aux éphémérides suisses, en maisons égales. Survole chaque glyphe pour savoir ce que c'est.">
+<link rel="canonical" href="https://astrorganic.fr/calcul-theme-astral/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calcul de thème astral gratuit">
+<meta property="og:description" content="Ta carte du ciel calculée à la minute, sans interprétation automatique : chaque glyphe te dit ce qu'il est, et renvoie au carnet.">
+<meta property="og:url" content="https://astrorganic.fr/calcul-theme-astral/">
+<meta property="og:locale" content="fr_FR">
+<link href="../polices/polices.css" rel="stylesheet">
+<link href="../menu-lectures.css" rel="stylesheet">
+<link href="../article.css" rel="stylesheet">
+<link href="calcul.css" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","name":"Calcul de thème astral gratuit","url":"https://astrorganic.fr/calcul-theme-astral/","applicationCategory":"LifestyleApplication","operatingSystem":"Tous (navigateur web)","inLanguage":"fr","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"license":"https://www.gnu.org/licenses/agpl-3.0.html","publisher":{"@type":"Organization","name":"astrOrganic","url":"https://astrorganic.fr/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://astrorganic.fr/"},{"@type":"ListItem","position":2,"name":"Calcul de thème astral"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Comment calculer son thème astral gratuitement ?","acceptedAnswer":{"@type":"Answer","text":"Il faut la date, l'heure et le lieu de naissance. Le calculateur d'astrOrganic place le Soleil, la Lune, les planètes, l'Ascendant et les maisons au moment exact de la naissance, aux éphémérides suisses, et montre la carte en roue. C'est gratuit et rien n'est enregistré."}},
+  {"@type":"Question","name":"Peut-on calculer son thème astral sans l'heure de naissance ?","acceptedAnswer":{"@type":"Answer","text":"En partie. Sans l'heure, la carte est calculée à midi : les planètes sont justes, mais l'Ascendant et les maisons ne se calculent pas, et la Lune peut changer de signe dans la journée."}},
+  {"@type":"Question","name":"Pourquoi des maisons égales ?","acceptedAnswer":{"@type":"Answer","text":"Il existe plusieurs façons de découper les maisons, et c'est une convention, pas une loi. astrOrganic utilise les maisons égales : trente degrés chacune, à partir de l'Ascendant. Les positions des planètes, elles, ne changent pas d'un système à l'autre."}},
+  {"@type":"Question","name":"Le calculateur interprète-t-il ma carte ?","acceptedAnswer":{"@type":"Answer","text":"Non. Il donne le calcul et explique chaque élément en général : ce qu'est Mars, ce qu'est une maison. Ce que ta carte dit de toi demande une lecture, qui tient compte de l'ensemble."}},
+  {"@type":"Question","name":"Mes données sont-elles gardées ?","acceptedAnswer":{"@type":"Answer","text":"Non. La date, l'heure et le lieu servent au calcul, puis rien n'est enregistré, ni sur le serveur, ni dans le navigateur. Le PDF est fabriqué dans le navigateur."}}
+ ]}
+]}
+</script>
+</head>
+<body>
+<div class="wrap large">
+  <nav>
+    <a class="marque" href="../">astr<span>O</span>rganic</a>
+    <div class="nav-droite">
+      <a class="retour" href="../">← Revenir à l'accueil</a>
+      <a class="lien lien-carnet" href="../carnet/">Le carnet</a>
+      <a class="lien lien-calcul" href="../calcul-theme-astral/" aria-current="page">Calculer ma carte</a>
+      <details class="menu-lectures">
+        <summary>Les lectures</summary>
+        <ul>
+          <li><a href="../theme-natal.html">Le thème natal <span>29 €</span></a></li>
+          <li><a href="../synastrie.html">La synastrie <span>39 €</span></a></li>
+          <li><a href="../agenda-du-ciel.html">L'agenda du ciel <span>49 €</span></a></li>
+        </ul>
+      </details>
+    </div>
+  </nav>
+
+  <header>
+    <p class="fil"><a href="../">Accueil</a> › Calcul de thème astral</p>
+    <h1>Calcul de thème astral gratuit</h1>
+    <p class="chapo">Ta carte du ciel, calculée à la minute. Tu donnes ta date, ton heure et ton lieu de naissance ; la carte place le Soleil, la Lune et les planètes au moment exact, vus depuis ton lieu de naissance. Survole chaque glyphe : il te dit ce qu'il est, et où en lire plus.</p>
+  </header>
+
+  <main>
+    <form id="formulaire" class="calcul" novalidate autocomplete="off">
+      <div class="champs">
+        <label>Date de naissance
+          <input type="date" id="date" min="1800-01-01" max="2399-12-31" required>
+        </label>
+        <label>Heure de naissance
+          <input type="time" id="heure">
+        </label>
+        <label class="coche"><input type="checkbox" id="sans-heure"> Je ne connais pas mon heure</label>
+      </div>
+      <label class="lieu">Lieu de naissance
+        <input type="text" id="lieu" placeholder="Ta ville : Lyon, Genève…" role="combobox" aria-autocomplete="list" aria-controls="lieux" aria-expanded="false" spellcheck="false">
+        <ul id="lieux" role="listbox" hidden></ul>
+        <span id="lieu-choisi" class="precision"></span>
+      </label>
+      <p class="precision">L’heure à indiquer est l’heure légale inscrite sur l’acte de naissance. Le calcul applique lui-même l’heure d’été de l’époque. <a href="../carnet/trouver-son-heure-de-naissance/">Comment trouver son heure de naissance</a></p>
+      <button type="submit" id="calculer" class="btn-calcul">Calculer ma carte</button>
+      <p id="message" class="message" role="alert"></p>
+      <p class="precision">Rien n’est enregistré : ni sur notre serveur, ni dans ton navigateur.</p>
+    </form>
+
+    <section id="resultat" hidden>
+      <h2 id="titre-resultat" tabindex="-1">Ta carte du ciel</h2>
+      <p id="resume" class="resume"></p>
+      <div id="trois" class="trois-reperes"></div>
+      <p id="sans-heure-note" class="encadre" hidden></p>
+      <p class="consigne">Survole ou touche un glyphe, un signe, une maison ou un trait : il te dit ce que c’est.</p>
+      <div id="roue" class="boite-roue"></div>
+      <p class="legende"><span class="trait accord"></span> trigone, sextile (en pointillé) : un accord · <span class="trait tension"></span> carré, opposition : une tension · AC : Ascendant · MC : Milieu du Ciel</p>
+
+      <div class="deux-colonnes">
+        <div>
+          <h3>Les positions</h3>
+          <div class="tableau">
+            <table class="positions"><thead><tr><th></th><th>Point</th><th>Position</th><th>Maison</th><th></th></tr></thead><tbody id="positions"></tbody></table>
+          </div>
+        </div>
+        <div>
+          <h3>Les aspects (<span id="nb-aspects"></span>)</h3>
+          <ul id="aspects" class="aspects"></ul>
+        </div>
+      </div>
+      <p id="technique" class="precision"></p>
+
+      <p class="actions"><button type="button" id="pdf" class="btn-pdf">Télécharger ma carte en PDF</button></p>
+      <p id="message-pdf" class="message" role="alert"></p>
+
+      <div class="appel">
+        <h2>Ce que ta carte dit de toi</h2>
+        <p>Le calcul donne les pièces. La lecture les assemble : ton thème astral, écrit pour quelqu’un qui n’a jamais ouvert un thème, calculé sur ces mêmes éphémérides et relu avant l’envoi. 29 €.</p>
+        <a class="btn" href="../theme-natal.html">Découvrir la lecture du thème natal</a>
+      </div>
+    </section>
+
+    <h2>Ce que calcule cette page</h2>
+    <p>À partir de la date, de l’heure et du lieu, le calcul convertit l’heure légale en temps universel, avec l’heure d’été de l’époque, puis place quatorze points sur le zodiaque : le Soleil, la Lune, les huit planètes de Mercure à Pluton, Chiron, la Lune Noire et les deux Nœuds lunaires. Avec l’heure, il ajoute l’Ascendant, le Milieu du Ciel et les douze maisons. Il relève enfin les aspects, les angles remarquables entre deux points.</p>
+    <p>Il ne fait rien d’autre. Aucune phrase n’est écrite sur toi : le survol explique ce qu’est chaque élément en général, selon la tradition, et renvoie au carnet. C’est la méthode d’astrOrganic, d’abord le calcul, ensuite la lecture. <a href="../carnet/la-methode-astrorganic/">La méthode, dans le carnet</a></p>
+
+    <h2>Nos conventions</h2>
+    <div class="trois">
+      <div><b>Maisons égales</b>Trente degrés chacune, à partir de l’Ascendant. Placidus ou les signes entiers se défendent aussi ; les planètes restent au même degré. <a href="../carnet/les-douze-maisons/">Les douze maisons</a></div>
+      <div><b>Nœuds et Lune Noire moyens</b>La position moyenne, qui avance régulièrement, plutôt que la position « vraie », qui oscille autour d’elle.</div>
+      <div><b>Aspects et orbes</b>Conjonction et opposition à 8° (10° avec le Soleil ou la Lune), carré et trigone à 7° (8°), sextile à 5° (6°) ; 3° entre Uranus, Neptune et Pluton.</div>
+    </div>
+
+    <h2>Questions fréquentes</h2>
+    <h3>Et si je ne connais pas mon heure de naissance ?</h3>
+    <p>Coche la case : la carte est calculée à midi. Les planètes seront justes, sauf la Lune, qui avance d’environ 13° par jour ; le calcul te dit si elle a changé de signe ce jour-là. L’Ascendant et les maisons ne se calculent pas sans l’heure. En France, l’heure figure sur la copie intégrale de l’acte de naissance.</p>
+    <h3>Pourquoi mon Ascendant diffère d’un autre site ?</h3>
+    <p>Presque toujours pour l’une de trois raisons : une heure arrondie, une heure d’été oubliée, ou un autre système de maisons. L’Ascendant change de signe environ toutes les deux heures, et de degré toutes les quatre minutes. Les positions des planètes, elles, doivent concorder à la minute d’arc près.</p>
+    <h3>Mes données sont-elles gardées ?</h3>
+    <p>Non. Elles servent au calcul, puis rien n’est enregistré. Le PDF est fabriqué dans ton navigateur. Seul un compteur anonyme, qui limite le nombre de calculs par heure, existe quelques heures pour éviter les abus. <a href="../confidentialite.html">Confidentialité</a></p>
+    <h3>Le code est-il vérifiable ?</h3>
+    <p>Oui, en entier. Le calculateur est un logiciel libre, sous licence GNU AGPL, comme la Swiss Ephemeris sur laquelle il repose. Tu peux lire comment chaque position est obtenue, refaire le calcul, et nous signaler une erreur.</p>
+
+    <div class="source">
+      <h2>Le code source</h2>
+      <p>Tout ce que fait cette page est publié : le calcul, la recherche de lieu, la roue, les textes du survol. Pas de boîte noire.</p>
+      <p><a id="lien-source" class="btn-source" href="https://github.com/aurelieverdon/astrorganic-calcul">Lire le code source du calculateur</a></p>
+      <p class="precision">Calcul : Swiss Ephemeris d’Astrodienst, sous licence AGPL. Lieux : communes de France (geo.api.gouv.fr, Licence Ouverte) et GeoNames (CC BY 4.0). Glyphes : police DejaVu Sans. PDF : jsPDF et svg2pdf (licence MIT).</p>
+    </div>
+
+    <p class="voir-aussi">À lire aussi : <a href="../comprendre/theme-de-naissance/">C’est quoi un thème de naissance ?</a> · <a href="../carnet/comment-fonctionne-l-astrologie/">Comment fonctionne l’astrologie</a> · <a href="../carnet/l-ascendant/">L’Ascendant</a> · <a href="../carnet/le-calcul-et-l-horoscope/">L’heure compte : le calcul d’un thème</a></p>
+  </main>
+
+  <footer>
+    astrOrganic · Aurélie Verdon
+    <ul>
+      <li><a href="../carnet/">Le carnet</a></li>
+      <li><a href="https://t.me/astrorganic" rel="noopener">Canal Telegram</a></li>
+      <li><a href="https://www.instagram.com/astrorganic/" rel="noopener">Instagram</a></li>
+      <li><a href="https://www.facebook.com/profile.php?id=61594323547067" rel="noopener">Facebook</a></li>
+      <li><a href="../mentions-legales.html">Mentions légales</a></li>
+      <li><a href="../cgv.html">Conditions de vente</a></li>
+      <li><a href="../confidentialite.html">Confidentialité</a></li>
+    </ul>
+  </footer>
+</div>
+<div id="bulle" class="bulle" role="dialog" aria-live="polite" hidden></div>
+<script src="../menu-lectures.js"></script>
+<script src="glyphes.js"></script>
+<script src="textes.js"></script>
+<script src="calcul.js"></script>
+</body>
+</html>
