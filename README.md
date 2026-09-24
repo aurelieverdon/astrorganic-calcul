@@ -21,7 +21,7 @@ tu peux lire comment chaque position est obtenue, refaire le calcul, et nous sig
 Les mêmes que les thèmes astraux d'astrOrganic, qui sont calculés avec la même bibliothèque et les mêmes réglages :
 maisons **égales** depuis l'Ascendant ; nœuds lunaires **moyens** ; Lune Noire **moyenne** ; degrés arrondis à la minute
 d'arc sans jamais franchir un signe ; aspects majeurs avec des orbes de 8° (conjonction, opposition), 7° (carré,
-trigone), 5° (sextile), élargis de 2° ou 1° avec le Soleil ou la Lune, et resserrés à 3° entre Uranus, Neptune et Pluton.
+trigone), 5° (sextile), élargis de 2° ou 1° avec le Soleil ou la Lune, et resserrés à 3° entre Uranus, Neptune et Pluton ; Chiron, 5° au plus.
 Sans heure de naissance : calcul à midi, sans Ascendant ni maisons, et la course de la Lune dans la journée.
 
 **Rien n'est enregistré.** Ni la date, ni l'heure, ni le lieu. Seul un compteur anonyme (adresse IP hachée avec un sel

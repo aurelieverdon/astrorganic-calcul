@@ -19,7 +19,7 @@ Conventions (les mêmes que les thèmes astraux d'astrOrganic) :
   - heure civile convertie en temps universel avec l'heure d'été de l'époque (base tz) ;
   - aspects majeurs, orbes : conjonction et opposition 8° (10° avec le Soleil ou la Lune),
     carré et trigone 7° (8°), sextile 5° (6°) ; entre deux planètes lentes de génération
-    (Uranus, Neptune, Pluton), 3°.
+    (Uranus, Neptune, Pluton), 3° ; Chiron, 5° au plus quel que soit l'aspect.
 Heure inconnue : la carte est calculée à midi, sans Ascendant, sans Milieu du Ciel, sans maisons,
 et la Lune est donnée avec sa course de la journée (elle avance d'environ 13° par jour).
 Rien n'est enregistré : les données entrent, la carte sort.
@@ -41,6 +41,7 @@ CORPS = [("Soleil", swe.SUN), ("Lune", swe.MOON), ("Mercure", swe.MERCURY), ("V�
          ("Lune Noire", swe.MEAN_APOG), ("Nœud Nord", swe.MEAN_NODE)]
 LUMINAIRES = {"Soleil", "Lune"}
 GENERATION = {"Uranus", "Neptune", "Pluton"}
+ORBE_CHIRON = 5     # Chiron : 5° au plus, meme avec un luminaire (convention du 24/09/2026, identique a carte.py)
 ASPECTS = [("conjonction", 0, 8, 10), ("sextile", 60, 5, 6), ("carré", 90, 7, 8),
            ("trigone", 120, 7, 8), ("opposition", 180, 8, 10)]
 
@@ -160,6 +161,8 @@ def carte(entree):
             e = min(e, 360 - e)
             for nom, angle, orbe, orbe_lum in ASPECTS:
                 large = 3 if a in GENERATION and b in GENERATION else (orbe_lum if LUMINAIRES & {a, b} else orbe)
+                if "Chiron" in (a, b):
+                    large = min(large, ORBE_CHIRON)
                 if abs(e - angle) <= large:
                     aspects.append({"de": a, "a": b, "aspect": nom, "ecart": round(abs(e - angle), 2)})
                     break

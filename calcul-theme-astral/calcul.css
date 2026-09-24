@@ -37,6 +37,7 @@
 .roue .cible.surligne line{stroke-width:2.6;opacity:1}
 .legende{font-family:Inter,system-ui,sans-serif;font-size:12.5px;color:var(--muted);text-align:center;margin:6px 0 24px}
 .legende .trait{display:inline-block;width:22px;height:0;border-top:2px solid;vertical-align:middle;margin:0 4px}
+.legende .trait.conj{width:10px;border-top-width:3px;border-radius:2px;border-color:#071D29}
 .legende .accord{border-color:var(--or)} .legende .tension{border-color:var(--navy)}
 .deux-colonnes{display:grid;grid-template-columns:3fr 2fr;gap:30px;align-items:start}
 .gl{width:1.05em;height:1.05em;vertical-align:-.15em;display:inline-block}

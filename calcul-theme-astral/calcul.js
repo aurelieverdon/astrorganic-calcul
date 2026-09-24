@@ -302,19 +302,30 @@
       });
     }
 
-    // les aspects : des traits entre les degrés exacts, or pour les accords, bleu nuit pour les tensions
+    // les aspects : TOUS ceux du calcul, angles compris (même règle que la roue des thèmes, 24/09/2026).
+    // Un trait entre les degrés exacts, or pour les accords, bleu nuit pour les tensions ; la conjonction,
+    // trop courte pour un trait, est un petit arc épais le long du cercle des aspects.
     var traits = el('g', {}, svg);
     c.aspects.forEach(function (a, i) {
-      if (a.aspect === 'conjonction' || a.de === 'Ascendant' || a.de === 'Milieu du Ciel' || a.a === 'Ascendant' || a.a === 'Milieu du Ciel') return;
-      var p = xy(c.points[a.de].longitude, R.aspects), q = xy(c.points[a.a].longitude, R.aspects);
-      var g = el('g', { 'data-cle': 'aspect-' + i }, traits);
-      el('line', { x1: p[0], y1: p[1], x2: q[0], y2: q[1], stroke: HARMONIE[a.aspect] ? '#B4830C' : '#071D29',
-                   'stroke-width': a.ecart < 1 ? 1.8 : 1, 'stroke-dasharray': a.aspect === 'sextile' ? '4 3' : 'none', opacity: 0.8 }, g);
+      var l1 = c.points[a.de].longitude, l2 = c.points[a.a].longitude;
+      var g = el('g', { 'data-cle': 'aspect-' + i }, traits), forme;
+      if (a.aspect === 'conjonction') {
+        var d = ((l2 - l1 + 540) % 360) - 180, chemin = '';
+        for (var k = 0; k <= 12; k++) { var m = xy(l1 + d * k / 12, R.aspects - 6); chemin += (k ? 'L' : 'M') + m[0].toFixed(1) + ' ' + m[1].toFixed(1); }
+        forme = { d: chemin, fill: 'none' };
+        el('path', Object.assign({ stroke: '#071D29', 'stroke-width': 3.2, 'stroke-linecap': 'round', opacity: 0.85 }, forme), g);
+      } else {
+        var p = xy(l1, R.aspects), q = xy(l2, R.aspects);
+        forme = { x1: p[0], y1: p[1], x2: q[0], y2: q[1] };
+        el('line', Object.assign({ stroke: HARMONIE[a.aspect] ? '#B4830C' : '#071D29', 'stroke-width': a.ecart < 1 ? 1.8 : 1,
+                                   'stroke-dasharray': a.aspect === 'sextile' ? '4 3' : 'none', opacity: 0.8 }, forme), g);
+      }
       if (!pourPdf) {
-        el('line', { x1: p[0], y1: p[1], x2: q[0], y2: q[1], stroke: 'transparent', 'stroke-width': 9 }, g);   // zone de survol
+        el(forme.d ? 'path' : 'line', Object.assign({ stroke: 'transparent', 'stroke-width': 9, fill: 'none' }, forme), g);   // zone de survol
         rendreInteractif(g, function () { return contenuAspect(a); }, ['aspect-' + i, 'point-' + a.de, 'point-' + a.a]);
       }
     });
+    if (traits.childNodes.length !== c.aspects.length) console.error('roue : aspects manquants');
 
     // les planètes : écartées quand elles se touchent, un trait les relie à leur degré exact
     var pts = ORDRE.filter(function (n) { return c.points[n]; }).map(function (n) { return { nom: n, lon: c.points[n].longitude, aff: c.points[n].longitude }; });
